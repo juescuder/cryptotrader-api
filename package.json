@@ -1,0 +1,19 @@
+{
+  "name": "cryptotraderapi",
+  "version": "1.0.0",
+  "description": "Main crypto exchanges API data",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "j.escudero@outlook.com",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "express": "^4.16.4",
+    "http-observable": "^0.1.0",
+    "request": "^2.88.0",
+    "rxjs": "^6.3.3",
+    "underscore": "^1.9.1"
+  }
+}

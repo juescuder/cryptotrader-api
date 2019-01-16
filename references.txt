@@ -1,0 +1,5 @@
+https://api.coindesk.com/v1/bpi/currentprice/BTC.json
+https://blockchain.info/ticker
+https://www.bitstamp.net/api/v2/ticker/btcusd/
+https://bittrex.com/api/v1.1/public/getticker?market=usd-btc
+https://api.coinbase.com/v2/prices/BTC-USD/buy
