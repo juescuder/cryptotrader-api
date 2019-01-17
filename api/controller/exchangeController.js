@@ -3,6 +3,7 @@
 var rxjs = require('rxjs');
 var _ = require('underscore');
 var async = require('async');
+var cache = require('memory-cache');
 
 var s1 = require('../service/BinanceService');
 var s2 = require('../service/BittrexService');
@@ -17,46 +18,60 @@ var responses = [];
 
 exports.coin = function(req, res) {
 
+  var responses = [];
   var symbol = req.params.symbol;
   console.log('Symbol requested: ' + symbol);
 
-  async.each(services, function(service, callback){
+  if(cache.get(symbol) != null)
+  {
+    console.log('Returned from Cache: ' + symbol);
+    res.send(cache.get(symbol));
+  }
+  else
+  {
+    async.each(services, function(service, callback){
 
-    service.getPrice(symbol).then(function(coin){
-      console.log(coin);
-      responses.push(coin);
-      callback();      
-    });
-
-  }, function(err){
-
-      var count = 0;
-      var amount = 0;
-
-      _.forEach(responses, x => {
-
-        if(x.price != "N/A")
-        {
-          count++;
-          amount = parseFloat(amount + (+parseFloat(x.price).toFixed(5)));
+      service.getPrice(symbol).then(function(coin){
+        console.log(coin);
+        responses.push(coin);
+        callback();      
+      });
+  
+    }, function(err){
+  
+        var count = 0;
+        var amount = 0;
+  
+        _.forEach(responses, x => {
+  
+          if(x.price != "N/A")
+          {
+            count++;
+            amount = parseFloat(amount + (+parseFloat(x.price).toFixed(5)));
+          }
+        });
+  
+        var response = {
+          symbol: symbol,
+          average: parseFloat((amount / count).toFixed(5)),
+          time : new Date().toUTCString(),
+          exchanges : _.sortBy(responses, x => x.exchangeId)
         }
-      });
+  
+        _.forEach(response.exchanges, x => {
+          if(x.price != "N/A")
+            x.gap = ((x.price - response.average) * 100 / response.average).toFixed(3) + "%";
+          else
+            x.gap = "N/A";
+        });
 
-      var response = {
-        symbol: symbol,
-        average: parseFloat((amount / count).toFixed(5)),
-        time : new Date().toUTCString(),
-        exchanges : _.sortBy(responses, x => x.exchangeId)
-      }
+        cache.put(symbol, response, 60000);
+        console.log('Added to Cache: ' + symbol);
 
-      _.forEach(response.exchanges, x => {
-        if(x.price != "N/A")
-          x.gap = ((x.price - response.average) * 100 / response.average).toFixed(3) + "%";
-        else
-          x.gap = "N/A";
-      });
+        res.send(response);
+        responses = [];
+    });
+  }
 
-      res.send(response);
-      responses = [];
-  });
+  
 };

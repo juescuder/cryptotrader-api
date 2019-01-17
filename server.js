@@ -7,4 +7,4 @@ routes(app);
 
 app.listen(port);
 
-console.log('todo list RESTful API server started on: ' + port);
+console.log('Cryptotrader API started on port: ' + port);
