@@ -23,7 +23,7 @@ exports.getPrice = function(symbol){
 
                 var symbol = res.request.header['symbol'];
                 var code = getCodeBySymbol(symbol);
-                var price = body.result[code] != null ? parseFloat(body.result[code].a[0]) : "N/A";
+                var price = (body.result != null && body.result[code] != null) ? parseFloat(body.result[code].a[0]) : "N/A";
 
                 var coin = {
                     exchangeId : 6,
@@ -48,6 +48,20 @@ function getCodeBySymbol(symbol){
             return 'XXRPZUSD';
         case 'BCH':
             return 'BCHUSD';
+        case 'DASH':
+            return 'DASHUSD';
+        case 'ETH':
+            return 'ETHUSD';
+        case 'ZEC':
+            return 'XZECZUSD';
+        case 'ETC':
+            return 'ZETCZUSD';
+        case 'LTC':
+            return 'XLTCZUSD';
+        case 'XMR':
+            return 'XXMRZUSD';
+        default:
+            return 'X';
     }
 }
 

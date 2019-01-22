@@ -53,5 +53,15 @@ function getCodeBySymbol(symbol){
             return 'USDC_XRP';
         case 'BCH':
             return 'USDC_BHC';
+        case 'XMR':
+            return 'USDC_XMR';
+        case 'DOGE':
+            return 'USDC_DOGE';
+        case 'LTC':
+            return 'USDC_LTC';
+        case 'ZEC':
+            return 'USDC_ZEC';
+        default:
+            return 'X';
     }
 }

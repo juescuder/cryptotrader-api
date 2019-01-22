@@ -48,12 +48,13 @@ exports.coin = function(req, res) {
           {
             count++;
             amount = parseFloat(amount + (+parseFloat(x.price).toFixed(5)));
+            x.price = x.price.toFixed(4);
           }
         });
   
         var response = {
           symbol: symbol,
-          average: parseFloat((amount / count).toFixed(5)),
+          average: parseFloat((amount / count).toFixed(4)),
           time : new Date().toUTCString(),
           exchanges : _.sortBy(responses, x => x.exchangeId)
         }

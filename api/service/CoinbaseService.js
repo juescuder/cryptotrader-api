@@ -39,7 +39,19 @@ function getCodeBySymbol(symbol){
             return 'BTC-USD';
         case 'ETH':
             return 'ETH-USD';
-        case 'XRP':
-            return 'XRP-USD';
+        case 'ETC':
+            return 'ETC-USD';
+        case 'LTC':
+            return 'LTC-USD';
+        case 'BCH':
+            return 'BCH-USD';
+        case 'ZRX':
+            return 'ZRX-USD';
+        case 'BAT':
+            return 'BAT-USDC';
+        case 'ZEC':
+            return 'BTC-USDC';
+        default:
+            return 'X';
     }
 }

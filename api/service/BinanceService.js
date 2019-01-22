@@ -45,6 +45,14 @@ function getCodeBySymbol(symbol){
             return 'XRPUSDC';
         case 'BCH':
             return 'BCHUSDC';
+        case 'EOS':
+            return 'EOSUSDC';
+        case 'XML':
+            return 'XLMUSDC';
+        case 'LINK':
+            return 'LINKUSDC';
+        default:
+            return 'N/A';
     }
 }
 

@@ -42,8 +42,32 @@ function getCodeBySymbol(symbol){
             return 'USD-ETH';
         case 'XRP':
             return 'USD-XRP';
+        case 'TRX':
+            return 'USD-TRX';
+        case 'LTC':
+            return 'USD-LTC';
         case 'BCH':
             return 'USD-BCH';
+        case 'ETC':
+            return 'USD-ETC';
+        case 'ADA':
+            return 'USD-ADA';
+        case 'BSV':
+            return 'USD-BSV';
+        case 'ZEC':
+            return 'USD-ZEC';
+        case 'DGB':
+            return 'USD-DGB';
+        case 'ZRX':
+            return 'USD-ZRX';
+        case 'BAT':
+            return 'USD-BAT';
+        case 'SC':
+            return 'USD-SC';
+        case 'PAX':
+            return 'USD-PAX';
+        default:
+            return 'X';
     }
 }
 

@@ -45,8 +45,32 @@ function getCodeBySymbol(symbol){
             return 'ethusd';
         case 'XRP':
             return 'xrpusd';
-        case 'BCH':
-            return 'bchusd';
+        case 'LTC':
+            return 'ltcusd';
+        case 'EOS':
+            return 'eosusd';
+        case 'NEO':
+            return 'neousd';
+        case 'MIOTA':
+            return 'miotausd';
+        case 'ETC':
+            return 'etcusd';
+        case 'XMR':
+            return 'xmrusd';
+        case 'BSV':
+            return 'bsvusd';
+        case 'DASH':
+            return 'dashusd';
+        case 'ZEC':
+            return 'zecusd';
+        case 'BTG':
+            return 'btgusd';
+        case 'XLM':
+            return 'xlmusd';
+        case 'TRX':
+            return 'trxusd';
+        default:
+            return 'X';
     }
 }
 
