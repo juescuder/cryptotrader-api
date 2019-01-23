@@ -12,8 +12,10 @@ var s4 = require('../service/PoloniexService');
 var s5 = require('../service/CoinbaseService');
 var s6 = require('../service/KrakenService');
 var s7 = require('../service/BitfinexService');
+var s8 = require('../service/OkexService');
+var s9 = require('../service/BitzService');
 
-var services = [s1, s2, s3, s4, s5, s6, s7];
+var services = [s1, s2, s3, s4, s5, s6, s7, s8, s9];
 var responses = [];
 
 exports.coin = function(req, res) {
@@ -61,7 +63,7 @@ exports.coin = function(req, res) {
   
         _.forEach(response.exchanges, x => {
           if(x.price != "N/A")
-            x.gap = ((x.price - response.average) * 100 / response.average).toFixed(3) + "%";
+            x.gap = parseFloat(((x.price - response.average) * 100 / response.average).toFixed(3));
           else
             x.gap = "N/A";
         });

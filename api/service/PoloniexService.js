@@ -14,29 +14,20 @@ exports.getPrice = function (symbol) {
 
         request(url, options, (err, res, body) => {
             
-            if(res != null)
-            {
-                if (err) 
-                    return console.log(err); 
+            var symbol = err == null ? res.request.header['symbol'] : "X";
+            var code = getCodeBySymbol(symbol);
+            var price = "N/A";
 
-                var symbol = res.request.header['symbol'];
-                
-                var code = getCodeBySymbol(symbol);
+            if(err == null && body[code] != null)
+                price = parseFloat(body[code].last);
 
-                var price = body[code] != null ? parseFloat(body[code].last) : "N/A";
-
-                var coin = {
-                    exchangeId : 4,
-                    exchange : "Poloniex",
-                    price : price
-                }
-
-                resolve(coin);
+            var coin = {
+                exchangeId : 4,
+                exchange : "Poloniex",
+                price : price
             }
-            else
-            {
-                resolve(null);
-            }
+
+            resolve(coin);
         });
     });
 }

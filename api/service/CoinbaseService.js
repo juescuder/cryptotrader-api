@@ -16,9 +16,10 @@ exports.getPrice = function (symbol) {
 
         request(url, options, (err, res, body) => {
             
-            var symbol = res.request.header['symbol'];
+            var price = "N/A";
 
-            var price = (body.errors == null || body.errors.length == 0) ? parseFloat(body.data.amount) : "N/A"
+            if(err == null && body.errors == null)
+                price = parseFloat(body.data.amount);
 
             var coin = {
                 exchangeId : 5,

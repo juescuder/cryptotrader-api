@@ -1,17 +1,15 @@
-//https://api.bitfinex.com/v1/pubticker/btcusd
-
 var request = require('request');
 var _ = require('underscore');
 
 exports.getPrice = function(symbol){
         return new Promise(function (resolve, reject) {
 
-            var url = 'https://api.bitfinex.com/v1/pubticker/' + getCodeBySymbol(symbol);
+            var url = 'https://www.okex.com/api/v1/ticker.do?symbol=' + getCodeBySymbol(symbol);
             var options = { 
                 json: true, 
                 method: 'GET',
                 header: {
-                    'symbol': symbol
+                    'symbol' : symbol
                 }
             }
 
@@ -19,12 +17,12 @@ exports.getPrice = function(symbol){
                 
                 var price = "N/A";
 
-                if(err == null && body.message == null)
-                    price = parseFloat(body.mid);
+                if(err == null && body.ticker != null)
+                    price = parseFloat(body.ticker.buy);
 
                 var coin = {
-                    exchangeId : 7,
-                    exchange : "Bitfinex",
+                    exchangeId : 8,
+                    exchange : "OKex",
                     price : price
                 }
         
@@ -38,37 +36,39 @@ function getCodeBySymbol(symbol){
     switch(symbol)
     {
         case 'BTC':
-            return 'btcusd';
+            return 'btc_usdt';
         case 'ETH':
-            return 'ethusd';
+            return 'eth_usdt';
         case 'XRP':
-            return 'xrpusd';
-        case 'LTC':
-            return 'ltcusd';
+            return 'xrp_usdt';
+        case 'BCH':
+            return 'bch_usdt';
         case 'EOS':
-            return 'eosusd';
+            return 'eos_usdt';
+        case 'LTC':
+            return 'ltc_usdt';
         case 'NEO':
-            return 'neousd';
+            return 'neo_usdt';
         case 'MIOTA':
-            return 'miotausd';
+            return 'miota_usdt';
         case 'ETC':
-            return 'etcusd';
+            return 'etc_usdt';
         case 'XMR':
-            return 'xmrusd';
+            return 'xmr_usdt';
         case 'BSV':
-            return 'bsvusd';
+            return 'bsv_usdt';
         case 'DASH':
-            return 'dashusd';
+            return 'dash_usdt';
         case 'ZEC':
-            return 'zecusd';
+            return 'zec_usdt';
         case 'BTG':
-            return 'btgusd';
+            return 'btg_usdt';
         case 'XLM':
-            return 'xlmusd';
+            return 'xlm_usdt';
         case 'TRX':
-            return 'trxusd';
+            return 'trx_usdt';
         default:
-            return 'X';
+            return 'N/A';
     }
 }
 

@@ -18,12 +18,12 @@ exports.getPrice = function(symbol){
 
             request(url, options, (err, res, body) => {
                 
-                if (err)
-                    return console.log(err); 
-
-                var symbol = res.request.header['symbol'];
+                var symbol = err == null ? res.request.header['symbol'] : "X";
                 var code = getCodeBySymbol(symbol);
-                var price = (body.result != null && body.result[code] != null) ? parseFloat(body.result[code].a[0]) : "N/A";
+                var price = "N/A";
+
+                if(err == null && (body.result != null && body.result[code] != null))
+                    parseFloat(body.result[code].a[0]);
 
                 var coin = {
                     exchangeId : 6,

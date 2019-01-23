@@ -15,17 +15,22 @@ exports.getPrice = function(symbol){
 
             request(url, options, (err, res, body) => {
                 
-                if (err)
-                    return console.log(err); 
-
-                var symbol = res.request.header['symbol'];
+                var symbol = err == null ? res.request.header['symbol'] : "X";
                 var code = getCodeBySymbol(symbol);
-                var price = _.find(body, x => x.symbol.indexOf(code)>-1);
+                var price = "N/A";
+
+                if(err == null){
+                    price = _.find(body, x => x.symbol.indexOf(code)>-1);
+                    if(price != null)
+                        price = parseFloat(price.price);
+                    else
+                        price = "N/A";
+                }
 
                 var coin = {
                     exchangeId : 1,
                     exchange : "Binance",
-                    price : price != null ? parseFloat(price.price) : "N/A"
+                    price : price
                 }
         
                 resolve(coin);
@@ -47,7 +52,7 @@ function getCodeBySymbol(symbol){
             return 'BCHUSDC';
         case 'EOS':
             return 'EOSUSDC';
-        case 'XML':
+        case 'XLM':
             return 'XLMUSDC';
         case 'LINK':
             return 'LINKUSDC';
