@@ -58,15 +58,29 @@ exports.coin = function(req, res) {
           symbol: symbol,
           average: parseFloat((amount / count).toFixed(4)),
           time : new Date().toUTCString(),
-          exchanges : _.sortBy(responses, x => x.exchangeId)
+          exchanges : _.sortBy(responses, x => x.exchangeId),
+          netGap: 0
         }
   
+        let maxGap = 0;
+        let minGap = 0;
+
         _.forEach(response.exchanges, x => {
           if(x.price != "N/A")
+          {
             x.gap = parseFloat(((x.price - response.average) * 100 / response.average).toFixed(3));
+            if(x.gap > maxGap)
+              maxGap = x.gap;
+
+            if(x.gap < minGap)
+              minGap = x.gap;
+          }
           else
             x.gap = "N/A";
         });
+
+        //NetGap
+        response.netGap = (maxGap - minGap).toFixed(3);
 
         cache.put(symbol, response, 60000);
         console.log('Added to Cache: ' + symbol);
